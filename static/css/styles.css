@@ -1,0 +1,16 @@
+:root { color-scheme: light; }
+body { font-family: "Outfit", sans-serif; }
+.font-serif { font-family: "Newsreader", serif; }
+.paper-noise {
+    background:
+        radial-gradient(circle at top left, rgba(197, 157, 111, 0.12), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(107, 143, 123, 0.14), transparent 28%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(248, 244, 237, 0.96)),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
+}
+.nav-link { color: #57534e; transition: color 150ms ease; }
+.nav-link:hover, .nav-link:focus-visible { color: #406150; }
+input[type="checkbox"] { height: 1.1rem; width: 1.1rem; }
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

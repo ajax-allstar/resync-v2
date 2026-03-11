@@ -1,0 +1,66 @@
+{% extends "core/app_shell.html" %}
+
+{% block title %}Planner | ReSync{% endblock %}
+
+{% block app_content %}
+<div class="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
+    <div class="space-y-6">
+        <div class="rounded-[2rem] border border-sand-200 bg-white/80 p-6 shadow-sm">
+            <h2 class="text-2xl font-semibold">Add a subject</h2>
+            <form method="post" class="mt-5 space-y-4">
+                {% csrf_token %}<input type="hidden" name="action" value="subject">
+                {% for field in subject_form %}<div><label class="text-sm font-medium text-stone-700">{{ field.label }}</label>{{ field }}</div>{% endfor %}
+                <button class="rounded-full bg-moss-700 px-5 py-3 text-sm font-semibold text-white">Save subject</button>
+            </form>
+        </div>
+        <div class="rounded-[2rem] border border-sand-200 bg-white/80 p-6 shadow-sm">
+            <h2 class="text-2xl font-semibold">Create a study plan</h2>
+            <form method="post" class="mt-5 space-y-4">
+                {% csrf_token %}<input type="hidden" name="action" value="plan">
+                {% for field in study_plan_form %}<div><label class="text-sm font-medium text-stone-700">{{ field.label }}</label>{{ field }}</div>{% endfor %}
+                <button class="rounded-full bg-moss-700 px-5 py-3 text-sm font-semibold text-white">Create plan</button>
+            </form>
+        </div>
+        <div class="rounded-[2rem] border border-sand-200 bg-white/80 p-6 shadow-sm">
+            <h2 class="text-2xl font-semibold">Schedule a session</h2>
+            <form method="post" class="mt-5 space-y-4">
+                {% csrf_token %}<input type="hidden" name="action" value="session">
+                {% for field in session_form %}<div><label class="text-sm font-medium text-stone-700">{{ field.label }}</label>{{ field }}</div>{% endfor %}
+                <button class="rounded-full bg-moss-700 px-5 py-3 text-sm font-semibold text-white">Save session</button>
+            </form>
+        </div>
+    </div>
+    <div class="space-y-6">
+        <div class="rounded-[2rem] border border-sand-200 bg-white/80 p-6 shadow-sm">
+            <div class="flex items-center justify-between"><h2 class="text-2xl font-semibold">Active plans</h2><p class="text-sm text-stone-500">{{ plans|length }} plans</p></div>
+            <div class="mt-5 space-y-4">
+                {% for plan in plans %}
+                    <div class="rounded-3xl border border-sand-200 bg-sand-100 p-5">
+                        <div class="flex flex-wrap items-center justify-between gap-3">
+                            <div><p class="font-semibold">{{ plan.title }}</p><p class="mt-1 text-sm text-stone-500">{{ plan.subject|default:"General" }} • {{ plan.get_priority_display }} priority</p></div>
+                            <span class="rounded-full bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-stone-500">{{ plan.session_total }} sessions</span>
+                        </div>
+                        {% if plan.description %}<p class="mt-3 text-sm leading-7 text-stone-600">{{ plan.description }}</p>{% endif %}
+                    </div>
+                {% empty %}
+                    <p class="text-sm text-stone-600">No plans yet. Start with a subject and one realistic target.</p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="rounded-[2rem] border border-sand-200 bg-white/80 p-6 shadow-sm">
+            <h2 class="text-2xl font-semibold">Scheduled sessions</h2>
+            <div class="mt-5 space-y-3">
+                {% for session in sessions %}
+                    <div class="rounded-3xl border border-sand-200 bg-sand-100 p-4">
+                        <p class="font-semibold">{{ session.title }}</p>
+                        <p class="mt-1 text-sm text-stone-500">{{ session.get_timer_mode_display }} • {{ session.focus_minutes }} min focus / {{ session.break_minutes }} min break</p>
+                        {% if session.scheduled_start %}<p class="mt-1 text-sm text-stone-500">{{ session.scheduled_start|date:"M j, g:i A" }}</p>{% endif %}
+                    </div>
+                {% empty %}
+                    <p class="text-sm text-stone-600">No sessions on the calendar yet.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

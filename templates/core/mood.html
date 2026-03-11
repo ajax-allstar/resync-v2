@@ -1,0 +1,29 @@
+{% extends "core/app_shell.html" %}
+
+{% block title %}Mood | ReSync{% endblock %}
+
+{% block app_content %}
+<div class="grid gap-6 xl:grid-cols-[0.8fr_1.2fr]">
+    <div class="rounded-[2rem] border border-sand-200 bg-white/80 p-6 shadow-sm">
+        <h2 class="text-2xl font-semibold">Log today’s mood</h2>
+        <form method="post" class="mt-5 space-y-4">
+            {% csrf_token %}
+            {% for field in mood_form %}<div><label class="text-sm font-medium text-stone-700">{{ field.label }}</label>{{ field }}</div>{% endfor %}
+            <button class="rounded-full bg-moss-700 px-5 py-3 text-sm font-semibold text-white">Save mood</button>
+        </form>
+    </div>
+    <div class="rounded-[2rem] border border-sand-200 bg-white/80 p-6 shadow-sm">
+        <div class="flex items-center justify-between"><h2 class="text-2xl font-semibold">Recent mood history</h2><span class="rounded-full bg-sand-100 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-stone-500">{{ moods|length }} entries</span></div>
+        <div class="mt-5 space-y-3">
+            {% for mood in moods %}
+                <div class="rounded-3xl border border-sand-200 bg-sand-100 p-4">
+                    <div class="flex items-center justify-between gap-3"><p class="font-semibold">{{ mood.get_level_display }}</p><p class="text-xs uppercase tracking-[0.18em] text-stone-400">{{ mood.logged_for|date:"M j, Y" }}</p></div>
+                    <p class="mt-2 text-sm text-stone-600">{{ mood.note|default:"No note added." }}</p>
+                </div>
+            {% empty %}
+                <p class="text-sm text-stone-600">No entries yet. Start with a quick check-in today.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

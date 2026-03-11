@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="ReSync icon">
+  <rect width="256" height="256" rx="56" fill="#f8f4ed"/>
+  <rect x="28" y="28" width="200" height="200" rx="42" fill="#6b8f7b"/>
+  <path d="M78 182V74h48c18 0 31 4 39 11 8 8 12 18 12 31 0 10-2 18-7 24-5 7-11 11-20 14l33 28h-30l-28-25h-19v25H78Zm28-47h17c9 0 15-2 20-5 4-4 6-9 6-16s-2-12-6-16c-4-4-11-6-20-6h-17v43Z" fill="#ffffff"/>
+</svg>

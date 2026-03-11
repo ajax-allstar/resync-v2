@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+    <div class="mb-8 flex flex-col gap-4 rounded-[2rem] border border-sand-200 bg-white/80 p-6 shadow-sm lg:flex-row lg:items-center lg:justify-between">
+        <div>
+            <p class="text-sm uppercase tracking-[0.2em] text-stone-400">{{ section_label }}</p>
+            <h1 class="mt-2 font-serif text-4xl">{{ section_title }}</h1>
+            <p class="mt-3 max-w-2xl text-sm leading-7 text-stone-600">{{ section_copy }}</p>
+        </div>
+        <div class="grid gap-3 sm:grid-cols-3">
+            <div class="rounded-3xl bg-sand-100 px-4 py-3">
+                <p class="text-xs uppercase tracking-[0.18em] text-stone-400">Today</p>
+                <p class="mt-2 text-2xl font-semibold">{{ summary.today_count }}</p>
+                <p class="text-sm text-stone-500">planned sessions</p>
+            </div>
+            <div class="rounded-3xl bg-sand-100 px-4 py-3">
+                <p class="text-xs uppercase tracking-[0.18em] text-stone-400">Focus time</p>
+                <p class="mt-2 text-2xl font-semibold">{{ summary.completed_minutes }}</p>
+                <p class="text-sm text-stone-500">minutes done</p>
+            </div>
+            <div class="rounded-3xl bg-sand-100 px-4 py-3">
+                <p class="text-xs uppercase tracking-[0.18em] text-stone-400">Streak</p>
+                <p class="mt-2 text-2xl font-semibold">{{ summary.streak_days }}</p>
+                <p class="text-sm text-stone-500">days steady</p>
+            </div>
+        </div>
+    </div>
+    {% block app_content %}{% endblock %}
+</section>
+{% endblock %}

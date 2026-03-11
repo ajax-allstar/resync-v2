@@ -1,0 +1,17 @@
+{
+  "name": "ReSync",
+  "short_name": "ReSync",
+  "description": "A gentle study planning and focus app for students.",
+  "display": "standalone",
+  "start_url": "/",
+  "background_color": "#f8f4ed",
+  "theme_color": "#f4efe6",
+  "icons": [
+    {
+      "src": "/static/icons/resync-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

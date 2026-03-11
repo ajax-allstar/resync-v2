@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f4efe6">
+    <title>{% block title %}ReSync{% endblock %}</title>
+    <link rel="manifest" href="{% static 'app.webmanifest' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        parchment: "#f8f4ed",
+                        sand: {100: "#fbf8f2", 200: "#f1e7d7", 300: "#e2d3bb", 500: "#c59d6f"},
+                        moss: {200: "#d7e5dd", 500: "#6b8f7b", 700: "#406150"},
+                        ink: "#2e312d",
+                        skysoft: "#b7ccd6"
+                    },
+                    boxShadow: {paper: "0 24px 60px rgba(110, 90, 60, 0.10)"}
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    {% block head %}{% endblock %}
+</head>
+<body class="min-h-full bg-parchment text-ink">
+    <div class="paper-noise fixed inset-0 -z-10 opacity-80"></div>
+    <header class="border-b border-sand-200 bg-white/80 backdrop-blur">
+        <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+            <a href="{% url 'landing' %}" class="flex items-center gap-3">
+                <span class="grid h-10 w-10 place-items-center rounded-2xl bg-moss-500 text-lg font-semibold text-white shadow-paper">R</span>
+                <div>
+                    <p class="font-serif text-2xl leading-none">ReSync</p>
+                    <p class="text-xs uppercase tracking-[0.22em] text-stone-500">Reset. Refocus. Rise.</p>
+                </div>
+            </a>
+            <nav class="hidden items-center gap-6 text-sm font-medium md:flex">
+                {% if request.user.is_authenticated %}
+                    <a href="{% url 'dashboard' %}" class="nav-link">Dashboard</a>
+                    <a href="{% url 'planner' %}" class="nav-link">Planner</a>
+                    <a href="{% url 'timetable' %}" class="nav-link">Timetable</a>
+                    <a href="{% url 'timer' %}" class="nav-link">Timer</a>
+                    <a href="{% url 'mood' %}" class="nav-link">Mood</a>
+                    <a href="{% url 'profile' %}" class="nav-link">Profile</a>
+                    <form action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <button class="rounded-full border border-sand-300 px-4 py-2 transition hover:border-moss-500 hover:text-moss-700">Log out</button>
+                    </form>
+                {% else %}
+                    <a href="#features" class="nav-link">Features</a>
+                    <a href="#demo" class="nav-link">Demo</a>
+                    <a href="#team" class="nav-link">Team</a>
+                    <a href="{% url 'login' %}" class="rounded-full border border-sand-300 px-4 py-2 transition hover:border-moss-500 hover:text-moss-700">Sign in</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+    {% if messages %}
+        <div class="mx-auto mt-4 max-w-5xl space-y-3 px-4 sm:px-6 lg:px-8">
+            {% for message in messages %}
+                <div class="rounded-2xl border border-sand-300 bg-white/90 px-4 py-3 text-sm shadow-sm">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <button id="install-app" class="fixed bottom-4 right-4 hidden rounded-full bg-moss-700 px-5 py-3 text-sm font-semibold text-white shadow-paper transition hover:bg-moss-500">Install ReSync</button>
+    <script src="{% static 'js/app.js' %}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

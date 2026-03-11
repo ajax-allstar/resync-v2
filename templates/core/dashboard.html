@@ -1,0 +1,97 @@
+{% extends "core/app_shell.html" %}
+
+{% block title %}Dashboard | ReSync{% endblock %}
+
+{% block app_content %}
+<div class="grid gap-6 xl:grid-cols-[1.2fr_0.8fr]">
+    <div class="space-y-6">
+        <div class="rounded-[2rem] border border-sand-200 bg-white/80 p-6 shadow-sm">
+            <div class="flex flex-wrap items-center justify-between gap-4">
+                <div>
+                    <p class="text-sm uppercase tracking-[0.18em] text-stone-400">Motivation</p>
+                    <h2 class="mt-2 text-2xl font-semibold">Your next step is already enough.</h2>
+                </div>
+                <a href="{% url 'timer' %}" class="rounded-full bg-moss-700 px-5 py-3 text-sm font-semibold text-white transition hover:bg-moss-500">Start a focus block</a>
+            </div>
+            <p id="dashboard-motivation" class="mt-4 max-w-2xl text-sm leading-7 text-stone-600">{{ motivation_message }}</p>
+        </div>
+        <div class="grid gap-6 lg:grid-cols-2">
+            <div class="rounded-[2rem] border border-sand-200 bg-white/80 p-6 shadow-sm">
+                <p class="text-sm uppercase tracking-[0.18em] text-stone-400">Next session</p>
+                {% if summary.next_session %}
+                    <h3 class="mt-3 text-2xl font-semibold">{{ summary.next_session.title }}</h3>
+                    <p class="mt-2 text-sm text-stone-500">{{ summary.next_session.scheduled_start|date:"D, M j, g:i A" }}</p>
+                    <p class="mt-2 text-sm text-stone-600">{{ summary.next_session.subject|default:"General focus" }}</p>
+                {% else %}
+                    <p class="mt-4 text-sm leading-7 text-stone-600">No upcoming session is scheduled yet. Head to the planner and create one block you can actually finish today.</p>
+                {% endif %}
+            </div>
+            <div class="rounded-[2rem] border border-sand-200 bg-white/80 p-6 shadow-sm">
+                <p class="text-sm uppercase tracking-[0.18em] text-stone-400">Mood snapshot</p>
+                {% if summary.mood %}
+                    <h3 class="mt-3 text-2xl font-semibold">{{ summary.mood.get_level_display }}</h3>
+                    <p class="mt-2 text-sm text-stone-600">{{ summary.mood.note|default:"No note today. That is okay." }}</p>
+                {% else %}
+                    <p class="mt-4 text-sm text-stone-600">No mood logged yet. A quick check-in can make the plan feel lighter.</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="rounded-[2rem] border border-sand-200 bg-white/80 p-6 shadow-sm">
+            <div class="flex items-center justify-between">
+                <h2 class="text-2xl font-semibold">Upcoming sessions</h2>
+                <a href="{% url 'planner' %}" class="text-sm font-semibold text-moss-700">Open planner</a>
+            </div>
+            <div class="mt-5 space-y-4">
+                {% for session in upcoming_sessions %}
+                    <div class="flex flex-col gap-2 rounded-3xl border border-sand-200 bg-sand-100 p-4 sm:flex-row sm:items-center sm:justify-between">
+                        <div>
+                            <p class="font-semibold">{{ session.title }}</p>
+                            <p class="text-sm text-stone-500">{{ session.subject|default:"General focus" }}{% if session.scheduled_start %} • {{ session.scheduled_start|date:"M j, g:i A" }}{% endif %}</p>
+                        </div>
+                        <span class="rounded-full bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-stone-500">{{ session.get_status_display }}</span>
+                    </div>
+                {% empty %}
+                    <p class="text-sm text-stone-600">No sessions yet. Create your first focus block in the planner.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="space-y-6">
+        <div class="rounded-[2rem] border border-sand-200 bg-white/80 p-6 shadow-sm">
+            <h2 class="text-2xl font-semibold">Quick mood check-in</h2>
+            <form method="post" class="mt-5 space-y-4">
+                {% csrf_token %}
+                {% for field in mood_form %}
+                    <div>
+                        <label class="text-sm font-medium text-stone-700" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                    </div>
+                {% endfor %}
+                <button class="rounded-full bg-moss-700 px-5 py-3 text-sm font-semibold text-white transition hover:bg-moss-500">Save mood</button>
+            </form>
+        </div>
+        <div class="rounded-[2rem] border border-sand-200 bg-white/80 p-6 shadow-sm">
+            <div class="flex items-center justify-between">
+                <h2 class="text-2xl font-semibold">Study plans</h2>
+                <a href="{% url 'planner' %}" class="text-sm font-semibold text-moss-700">Manage</a>
+            </div>
+            <div class="mt-5 space-y-3">
+                {% for plan in study_plans %}
+                    <div class="rounded-3xl border border-sand-200 bg-sand-100 p-4">
+                        <p class="font-semibold">{{ plan.title }}</p>
+                        <p class="mt-1 text-sm text-stone-500">{{ plan.subject|default:"General" }} • {{ plan.get_priority_display }} priority</p>
+                    </div>
+                {% empty %}
+                    <p class="text-sm text-stone-600">No plans yet. Add one focused goal to get started.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+window.resyncPage = {name: "dashboard", summaryUrl: "{% url 'api-dashboard-summary' %}"};
+</script>
+{% endblock %}

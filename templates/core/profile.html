@@ -1,0 +1,22 @@
+{% extends "core/app_shell.html" %}
+
+{% block title %}Profile | ReSync{% endblock %}
+
+{% block app_content %}
+<div class="rounded-[2rem] border border-sand-200 bg-white/80 p-6 shadow-sm">
+    <div class="max-w-3xl">
+        <h2 class="text-2xl font-semibold">Your study preferences</h2>
+        <p class="mt-2 text-sm leading-7 text-stone-600">These settings shape the dashboard copy, default focus times, and overall study comfort.</p>
+        <form method="post" class="mt-6 grid gap-4 md:grid-cols-2">
+            {% csrf_token %}
+            {% for field in profile_form %}
+                <div class="{% if field.name == 'notifications_enabled' %}md:col-span-2{% endif %}">
+                    <label class="text-sm font-medium text-stone-700">{{ field.label }}</label>
+                    {{ field }}
+                </div>
+            {% endfor %}
+            <div class="md:col-span-2"><button class="rounded-full bg-moss-700 px-5 py-3 text-sm font-semibold text-white">Save profile</button></div>
+        </form>
+    </div>
+</div>
+{% endblock %}

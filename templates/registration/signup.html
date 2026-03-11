@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Create Account | ReSync{% endblock %}
+
+{% block content %}
+<section class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-3xl rounded-[2rem] border border-sand-200 bg-white/80 p-8 shadow-paper">
+        <p class="text-sm uppercase tracking-[0.2em] text-stone-400">Create your focus space</p>
+        <h1 class="mt-3 font-serif text-4xl">Set up ReSync in a minute.</h1>
+        <form method="post" class="mt-8 grid gap-4 md:grid-cols-2">
+            {% csrf_token %}
+            {% for field in form %}
+                <div>
+                    <label class="text-sm font-medium text-stone-700">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.help_text %}<p class="mt-1 text-xs text-stone-500">{{ field.help_text|safe }}</p>{% endif %}
+                </div>
+            {% endfor %}
+            <div class="md:col-span-2"><button class="rounded-full bg-moss-700 px-5 py-3 text-sm font-semibold text-white">Create account</button></div>
+        </form>
+        <p class="mt-6 text-sm text-stone-600">Already have an account? <a class="font-semibold text-moss-700" href="{% url 'login' %}">Sign in</a>.</p>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}ReSync | Student Focus App{% endblock %}
+
+{% block content %}
+<section class="mx-auto max-w-7xl px-4 pb-20 pt-14 sm:px-6 lg:px-8">
+    <div class="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
+        <div>
+            <p class="inline-flex rounded-full border border-sand-300 bg-white/80 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-stone-500">Built by Dland Group</p>
+            <h1 class="mt-6 max-w-3xl font-serif text-5xl leading-tight text-ink sm:text-6xl">A calmer study rhythm for students carrying too much pressure.</h1>
+            <p class="mt-6 max-w-2xl text-lg leading-8 text-stone-600">ReSync helps students recover from social media brain fog, build clear study structures, stay on timetable, and keep moving even when motivation dips.</p>
+            <div class="mt-8 flex flex-wrap gap-4">
+                <a href="{% url 'signup' %}" class="rounded-full bg-moss-700 px-6 py-3 font-semibold text-white shadow-paper transition hover:bg-moss-500">Create your space</a>
+                <a href="{% url 'login' %}" class="rounded-full border border-sand-300 bg-white/90 px-6 py-3 font-semibold transition hover:border-moss-500 hover:text-moss-700">Sign in</a>
+            </div>
+        </div>
+        <div class="relative">
+            <div class="absolute inset-0 -rotate-3 rounded-[2rem] bg-skysoft/60 blur-3xl"></div>
+            <div class="relative rounded-[2rem] border border-sand-200 bg-white/85 p-6 shadow-paper">
+                <div class="rounded-[1.5rem] bg-gradient-to-br from-sand-100 to-white p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-stone-500">Today in ReSync</p>
+                            <h2 class="mt-1 text-2xl font-semibold">Your focus corner</h2>
+                        </div>
+                        <div class="rounded-2xl bg-moss-200 px-4 py-2 text-sm font-semibold text-moss-700">25:00</div>
+                    </div>
+                    <div class="mt-6 grid gap-4">
+                        <div class="rounded-3xl bg-white p-4">
+                            <p class="text-xs uppercase tracking-[0.18em] text-stone-400">Next session</p>
+                            <p class="mt-2 text-lg font-semibold">Biology revision sprint</p>
+                            <p class="mt-1 text-sm text-stone-500">3:30 PM to 4:15 PM</p>
+                        </div>
+                        <div class="grid gap-4 sm:grid-cols-2">
+                            <div class="rounded-3xl bg-white p-4">
+                                <p class="text-xs uppercase tracking-[0.18em] text-stone-400">Mood</p>
+                                <p class="mt-2 text-lg font-semibold">Steady</p>
+                            </div>
+                            <div class="rounded-3xl bg-white p-4">
+                                <p class="text-xs uppercase tracking-[0.18em] text-stone-400">Motivation</p>
+                                <p class="mt-2 text-sm font-medium text-stone-600">One calm session is enough to reset the day.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="features" class="mx-auto grid max-w-7xl gap-5 px-4 py-8 sm:px-6 md:grid-cols-2 xl:grid-cols-4 lg:px-8">
+    <div class="rounded-[2rem] border border-sand-200 bg-white/75 p-6 shadow-sm"><h3 class="text-xl font-semibold">Study Planner</h3><p class="mt-3 text-sm leading-7 text-stone-600">Build goals, map effort, and break big tasks into sessions that feel approachable.</p></div>
+    <div class="rounded-[2rem] border border-sand-200 bg-white/75 p-6 shadow-sm"><h3 class="text-xl font-semibold">Smart Timers</h3><p class="mt-3 text-sm leading-7 text-stone-600">Use Pomodoro, custom focus/break cycles, and a stopwatch that keeps its state on refresh.</p></div>
+    <div class="rounded-[2rem] border border-sand-200 bg-white/75 p-6 shadow-sm"><h3 class="text-xl font-semibold">Mood + Motivation</h3><p class="mt-3 text-sm leading-7 text-stone-600">Track how you feel and receive supportive, non-judgmental nudges that fit the day.</p></div>
+    <div class="rounded-[2rem] border border-sand-200 bg-white/75 p-6 shadow-sm"><h3 class="text-xl font-semibold">Accessible by design</h3><p class="mt-3 text-sm leading-7 text-stone-600">Warm white mode, readable contrast, keyboard support, and a softer visual tone for tired eyes.</p></div>
+</section>
+<section id="team" class="mx-auto max-w-7xl px-4 pb-20 pt-8 sm:px-6 lg:px-8">
+    <div class="grid gap-5 md:grid-cols-3">
+        <div class="rounded-[2rem] border border-sand-200 bg-white/75 p-6 shadow-sm"><p class="text-sm uppercase tracking-[0.2em] text-stone-400">Team</p><p class="mt-3 text-2xl font-semibold">Daniel Santhosh</p><p class="mt-2 text-sm font-medium text-moss-700">Product vision and demo lead</p><p class="mt-3 text-sm text-stone-600">Daniel Santhosh established the original ReSync concept and demo direction, helping shape the product around real student pressure points such as exam stress, distraction, and unstable routines. His contribution centers on product clarity, student-first experience design, and making the app feel supportive, modern, and practical.</p></div>
+        <div class="rounded-[2rem] border border-sand-200 bg-white/75 p-6 shadow-sm"><p class="text-sm uppercase tracking-[0.2em] text-stone-400">Team</p><p class="mt-3 text-2xl font-semibold">Ajax Shinto</p><p class="mt-2 text-sm font-medium text-moss-700">Development and systems implementation</p><p class="mt-3 text-sm text-stone-600">Ajax Shinto leads the implementation side of ReSync, turning the product vision into a usable cross-platform web experience with reliable planning flows, focus tools, and scalable integrations. His contribution is centered on application structure, feature delivery, and building foundations that can grow with the platform.</p></div>
+        <div class="rounded-[2rem] border border-sand-200 bg-white/75 p-6 shadow-sm"><p class="text-sm uppercase tracking-[0.2em] text-stone-400">App by</p><p class="mt-3 text-2xl font-semibold">Dland Group</p><p class="mt-2 text-sm text-stone-600">A student-friendly productivity product for everyday academic recovery and structure.</p></div>
+    </div>
+</section>
+{% endblock %}
